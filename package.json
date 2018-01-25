@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/djsulli24/node_hangman#readme",
   "dependencies": {
+    "inquirer": "^5.0.1",
     "prompt": "^1.0.0"
   }
 }

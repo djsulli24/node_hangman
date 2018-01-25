@@ -1,0 +1,30 @@
+PSEUDOCODE
+
+word.js
+
+word: string of word
+blanksArray: array with blanks/correctly guessed letters
+wordArray: array with letters of the word
+
+
+letters.js
+
+validation (not more than one character, must be in alphabet)
+
+game.js
+
+display current blanks array
+prompt for letter
+
+Display word.playArray (rendering function)
+Ask for guess
+Validate entry is letter
+Iterate through word.playArray
+    Where it's a match, mark word.playArray[i].guessed as true
+IF match, display word.playArray and ask for another guess
+IF not match, remainingGuesses --
+CHECK FOR (endGameCheck) :
+    remainingGuesses == 0
+    word complete (checkWordComplete function - all "guessed" values are true)
+Display word.playArray
+
