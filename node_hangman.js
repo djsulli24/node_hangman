@@ -1,15 +1,18 @@
 var inquirer = require('inquirer');
-var wordObject = require('./word.js');
+var wordObject = require('./components/word.js');
 var fs = require('fs');
-var wordListImport = require('./wordlist.js');
+var wordListImport = require('./components/wordlist.js');
 const wordList = JSON.parse(JSON.stringify(wordListImport));
 var gameInstances = [];
 
+// This is a global function that creates a new instance of the game object, adds it
+// to the gameInstances array, and starts that new game.
 function newGame() {
     gameInstances.push(new Game(wordList[Math.floor(Math.random()*wordList.length)]));
     gameInstances[gameInstances.length-1].renderWord();
 }
 
+// Constructor function for the game object
 function Game(inputWord) {
     this.wordString = inputWord.toUpperCase();
     this.word = new wordObject(inputWord);
@@ -18,6 +21,7 @@ function Game(inputWord) {
     this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 };
 
+// This displays the word on the CLI (with guessed letters and blanks)
 Game.prototype.renderWord = function() {
     let string = "";
     if (this.remainingGuesses === 10 && gameInstances.length === 1 && this.guessedLetters.length === 0) {
@@ -35,6 +39,7 @@ Game.prototype.renderWord = function() {
     this.askGuess();
 };
 
+// Prompts the user to guess a letter and displays the word with correctly guessed letters
 Game.prototype.askGuess = function() {
     if (this.remainingGuesses > 0) {
         inquirer.prompt([
@@ -65,6 +70,8 @@ Game.prototype.askGuess = function() {
     }
 };
 
+// Validates user entry, checks whether it's a match, whether the game is over, and
+// decides what message to display to the user
 Game.prototype.checkGuess = function (inputLetter) {
     let userGuess = inputLetter.toUpperCase();
     let match = false;
@@ -101,6 +108,8 @@ Game.prototype.checkGuess = function (inputLetter) {
     }
 };
 
+// Checks whether the game is complete by going over each letter instance in the word object,
+// and checking each letter.guessed value 
 Game.prototype.checkIfComplete = function() {
     for (let obj of this.word.playArray) {
         if (!obj.guessed){
@@ -110,7 +119,6 @@ Game.prototype.checkIfComplete = function() {
         return true;
 };
 
-// Creates a new Game object instance with a random word from the wordList.
-
+// Starts the game.
 newGame();
 
