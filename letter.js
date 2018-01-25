@@ -1,6 +1,6 @@
 function Letter(letter) {
     this.letter = letter.toUpperCase();
-    this.guessed = ("abcdefghijklmnopqrstuvwxyz".indexOf(letter) === -1)? true : false;
+    this.guessed = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(letter.toUpperCase()) === -1)? true : false;
 };
 
 module.exports = Letter;
